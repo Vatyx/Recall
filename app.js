@@ -1,6 +1,7 @@
 require('dotenv').load();
 var express = require("express");
 var hound = require('hound').HoundNode;
+var app = express();
 
 app.get("/", function(req, res)
 {
