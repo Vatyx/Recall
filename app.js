@@ -5,6 +5,7 @@ var fs = require('fs');
 var uuid = require('node-uuid');
 
 var hound = require('hound').HoundNode;
+var app = express();
 
 var app = express();
 
