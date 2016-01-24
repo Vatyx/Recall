@@ -188,7 +188,7 @@ angular.module('starter.controllers', [])
 
     newEvent.set("title", event.name);
     newEvent.set("desc", event.desc);
-    newEvent.set("day_type", event.day);
+    newEvent.set("day_type", event.day.toLowerCase());
     newEvent.set("location", event.location);
 
     newEvent.save(null, {
