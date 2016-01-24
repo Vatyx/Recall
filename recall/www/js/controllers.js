@@ -46,14 +46,73 @@ angular.module('starter.controllers', [])
     $scope.modal.hide();
   }
 
+  $scope.showDelete = false;
+
+  $scope.onItemDelete = function(person) {
+    $scope.family.splice($scope.family.indexOf(person), 1);
+  };
 
 })
 
 .controller('EventsCtrl', function($scope, $rootScope, $ionicModal) {
 
   $scope.events = [
+    { day: 'yesterday', name: 'Playing League', desc: 'Got challenjour with ap leesong support', location: 'Philadelphia' },
+    { day: 'today', name: 'Listeing to music', desc: 'Some of these songs are really good', location: 'UPenn' },
+    { day: 'tomorrow', name: 'Baking', desc: 'Baking food and stuff', location: 'Dallas, Texas' },
+  ];
 
-  ]
+  var days = ['yesterday', 'today', 'tomorrow'];
+
+  function eventDayUpdates() {
+    var eventDays = {};
+    for (day in days) {
+      eventDays[days[day]] = [];
+      for (event in $scope.events) {
+        if (days[day] === $scope.events[event].day.toLowerCase()) {
+          eventDays[days[day]].push($scope.events[event]);
+        }
+      }
+
+      if (eventDays[days[day]].length < 1) {
+        delete eventDays[days[day]];
+      }
+    }
+    return eventDays;
+  };
+
+  $scope.eventDays = eventDayUpdates();
+
+  $scope.showDelete = false;
+
+  $scope.onItemDelete = function(event) {
+    $scope.events.splice($scope.events.indexOf(event), 1);
+    $scope.eventDays = eventDayUpdates();
+  };
+
+  $ionicModal.fromTemplateUrl('addEvent.html', {
+    scope: $scope,
+    animation: 'slide-in-up',
+    focusFirstInput: true
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+  $scope.openModal = function() {
+    $scope.modal.show();
+  };
+
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
+
+  $scope.createEvent = function(event) {
+    console.log(event);
+    $scope.events.push(event);
+    $scope.eventDays = eventDayUpdates();
+    $scope.modal.hide();
+  }
+
 })
 
 .controller('AccountCtrl', function($scope, $rootScope) {

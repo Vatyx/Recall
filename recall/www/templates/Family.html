@@ -1,13 +1,24 @@
-<ion-view view-title="Family">
+<ion-view view-title="Family and Friends">
   <ion-content class="padding">
 
-    <div class="list card">
-      <div class="item item-avatar" ng-repeat="person in family">
+    <div class="row">
+      <button class="button button-block button-positive col" style="margin-right: 5px;" ng-click="openModal()">
+        Add Contact
+      </button>
+      <button class="button button-block button-assertive col" ng-click="showDelete = !showDelete" style="margin-left: 5px;">
+        Delete Contact
+      </button>
+    </div>
+
+    <ion-list show-delete="showDelete" class="list card">
+      <ion-item class="item item-avatar" ng-repeat="person in family">
+        <ion-delete-button class="ion-minus-circled" ng-click="onItemDelete(person)">
+        </ion-delete-button>
         <img src="img/contact.jpg">
         <h2>{{ person.name }}</h2>
         <p>{{ person.desc }}</p>
-      </div>
-    </div>
+      </ion-item>
+    </ion-list>
 
     <script id="addFamily.html" type="text/ng-template">
       <ion-modal-view>

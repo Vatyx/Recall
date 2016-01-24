@@ -1,18 +1,29 @@
 <ion-view view-title="Events">
   <ion-content class="padding">
 
-    <button class="button button-block button-positive" ng-click="openModal()">
-      Add Contact
-    </button>
-    <div class="list card">
-      <div class="item item-avatar" ng-repeat="person in family">
-        <img src="img/contact.jpg">
-        <h2>{{ person.name }}</h2>
-        <p>{{ person.desc }}</p>
-      </div>
+    <div class="row">
+      <button class="button button-block button-positive col" style="margin-right: 5px;" ng-click="openModal()">
+        Add Event
+      </button>
+      <button class="button button-block button-assertive col" ng-click="showDelete = !showDelete" style="margin-left: 5px;">
+        Delete Event
+      </button>
     </div>
 
-    <script id="addFamily.html" type="text/ng-template">
+    <ion-list show-delete="showDelete" class="list card" ng-repeat="eventDay in eventDays">
+      <div class="item item-divider">
+        {{eventDay[0].day.charAt(0).toUpperCase() + eventDay[0].day.slice(1)}}'s activities
+      </div>
+      <ion-item class="item" ng-repeat="event in eventDay">
+        <ion-delete-button class="ion-minus-circled" ng-click="onItemDelete(event)">
+        </ion-delete-button>
+        <h2>{{ event.name }}</h2>
+        <h3>{{ event.location }}</h3>
+        <p>{{ event.desc }}</p>
+      </ion-item>
+    </ion-list>
+
+    <script id="addEvent.html" type="text/ng-template">
       <ion-modal-view>
         <ion-header-bar class="bar bar-header bar-positive">
           <h1 class="title">New Contact</h1>
@@ -20,15 +31,29 @@
         </ion-header-bar>
         <ion-content class="padding">
           <div class="list">
+            <label class="item item-input item-select">
+              <div class="input-label">
+                Day
+              </div>
+              <select ng-model="newEvent.day">
+                <option>Yesterday</option>
+                <option selected>Today</option>
+                <option>Tomorrow</option>
+              </select>
+            </label>
             <label class="item item-input">
               <span class="input-label">Name</span>
-              <input ng-model="newUser.name" type="text">
+              <input ng-model="newEvent.name" type="text">
             </label>
             <label class="item item-input">
               <span class="input-label">Description</span>
-              <input ng-model="newUser.desc" type="text">
+              <input ng-model="newEvent.desc" type="text">
             </label>
-            <button class="button button-full button-positive" ng-click="createContact(newUser)">Create</button>
+            <label class="item item-input">
+              <span class="input-label">Location</span>
+              <input ng-model="newEvent.location" type="text">
+            </label>
+            <button class="button button-full button-positive" ng-click="createEvent(newEvent)">Create</button>
           </div>
         </ion-content>
       </ion-modal-view>
