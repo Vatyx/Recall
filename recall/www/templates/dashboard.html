@@ -1,0 +1,12 @@
+<ion-view view-title="Recall">
+  <ion-content class="padding">
+
+    <div class="list card" style="width: 70%; margin-left: 15%;">
+      <a href="#" class="item item-icon-left" ng-repeat="item in items" item="item" href="#/item/{{item.id}}" class="item-remove-animate" style="font-size: 18px;">
+        <i class="icon {{ item.icon }}"></i>
+         {{ item.id }} settings
+      </a>
+    </div>
+
+  </ion-content>
+</ion-view>
