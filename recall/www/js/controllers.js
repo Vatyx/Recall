@@ -22,8 +22,8 @@ angular.module('starter.controllers', [])
 .controller('FamilyCtrl', function($scope, $rootScope, $ionicModal) {
 
   $scope.family = [
-    { name: 'John Smith', desc: 'Patient\'s son', id: '' },
-    { name: 'Jane Smith', desc: 'Patient\'s daughter', id: '' }
+    { name: 'John Smith', desc: 'Patient\'s son', id: '0' },
+    { name: 'Jane Smith', desc: 'Patient\'s daughter', id: '0' }
   ];
 
   $scope.$on('$ionicView.enter', function(){
@@ -114,7 +114,6 @@ angular.module('starter.controllers', [])
           var object = results[i];
           $scope.events.push({ name: object.get('title'), location: object.get('location'), day: object.get('day_type'), desc: object.get('desc'), id: object.id});
         }
-        console.log($scope.events)
         $scope.eventDays = eventDayUpdates();
       },
       error: function(error) {
@@ -208,6 +207,10 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('AccountCtrl', function($scope, $rootScope) {
+.controller('AlertsCtrl', function($scope, $rootScope) {
+
+})
+
+.controller('PersonalCtrl', function($scope, $rootScope) {
 
 });
