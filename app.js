@@ -96,15 +96,38 @@ app.get("/", function(req, res)
 	res.end();
 });
 
-// app.get('/voiceSearchAuth', hound.createVoiceAuthHandler({ 
-//   clientId:  process.env.CLIENT_ID, 
-//   clientKey: process.env.CLIENT_SECRET
-// }));
+var myConversation = new Hound.Conversation();
 
-// app.get('/textSearchProxy', hound.createTextProxyHandler({ 
-//   clientId:  process.env.CLIENT_ID, 
-//   clientKey: process.env.CLIENT_SECRET
-// }));
+var textSearch = new Hound.TextSearch({
+
+    proxy: {
+      route: "/textSearchProxy",
+      method: "GET"
+    },
+
+    conversation: myConversation,
+
+    onResponse: function(response, info) {
+      if (response.AllResults && response.AllResults[0] !== undefined) {
+        jsonElet.value = JSON.stringify(response, undefined, 2);
+        jsonElet.parentNode.hidden = false;
+        infoElet.value = JSON.stringify(info, undefined, 2);
+        infoElet.parentNode.hidden = false;
+      }
+    },
+
+    onError: function(err, info) {
+      jsonElet.parentNode.hidden = true;
+      infoElet.value = JSON.stringify(info, undefined, 2);
+      infoElet.parentNode.hidden = false;
+    }
+
+});	
+
+function doTextSearch() {
+        var query = document.getElementById('query').value;
+        textSearch.search(query, requestInfo);
+      } 
 
 app.listen(3000, function () {
   console.log('App listening on port 3000!');
