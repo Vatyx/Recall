@@ -78,21 +78,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
-  .state('app.Music', {
-    url: '/Music',
+  .state('app.Alerts', {
+    url: '/Alerts',
     views: {
       'menuContent': {
-        templateUrl: 'templates/Music.html',
-        controller: 'MusicCtrl'
-      }
-    }
-  })
-  .state('app.Other', {
-    url: '/Other',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/Other.html',
-        controller: 'OtherCtrl'
+        templateUrl: 'templates/Alerts.html',
+        controller: 'AlertsCtrl'
       }
     }
   })
